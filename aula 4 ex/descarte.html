@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Descarte Irregular de Resíduos</title>
+<link rel="stylesheet" href="assets/estilo/style.css">
+</head>
+<body>
+<div class="container">
+
+  <h1>Descarte Irregular de Resíduos</h1>
+
+  <div id="etapa-1" class="tela ativa">
+    <h2>Etapa 1 de 3</h2>
+    <label>Tipo de material descartado</label>
+    <select id="tipoMaterial">
+      <option value="">Selecione...</option>
+      <option>Entulho de obra</option>
+      <option>Lixo doméstico volumoso</option>
+      <option>Lixo eletrônico</option>
+      <option>Resíduo químico ou perigoso</option>
+      <option>Outro</option>
+    </select>
+
+    <label>Data em que foi observado</label>
+    <input type="date" id="data">
+
+    <div class="botoes">
+      <a class="btn-secundario" href="index.html">Cancelar</a>
+      <button class="btn-primario" onclick="mostrarTela('etapa-2')">Próxima etapa</button>
+    </div>
+  </div>
+
+  <div id="etapa-2" class="tela">
+    <h2>Etapa 2 de 3</h2>
+    <label>Endereço do local</label>
+    <input type="text" id="endereco">
+
+    <label>Bairro</label>
+    <input type="text" id="bairro">
+
+    <label>Quantidade estimada</label>
+    <select id="quantidade">
+      <option value="">Selecione...</option>
+      <option>Pequena</option>
+      <option>Média</option>
+      <option>Grande</option>
+    </select>
+
+    <div class="botoes">
+      <button class="btn-secundario" onclick="mostrarTela('etapa-1')">Voltar</button>
+      <button class="btn-primario" onclick="mostrarTela('etapa-3')">Próxima etapa</button>
+    </div>
+  </div>
+
+  <div id="etapa-3" class="tela">
+    <h2>Etapa 3 de 3</h2>
+    <label>Descreva o que você observou</label>
+    <textarea id="descricao"></textarea>
+
+    <div class="checkbox-linha">
+      <label><input type="checkbox" id="fotos"> Possuo fotos do local</label>
+    </div>
+
+    <div class="botoes">
+      <button class="btn-secundario" onclick="mostrarTela('etapa-2')">Voltar</button>
+      <button class="btn-primario" onclick="mostrarResumo()">Revisar denúncia</button>
+    </div>
+  </div>
+
+  <div id="tela-resumo" class="tela">
+    <h2>Confirme os dados da denúncia</h2>
+    <div id="resumo-conteudo"></div>
+
+    <div class="botoes">
+      <button class="btn-secundario" onclick="mostrarTela('etapa-3')">Voltar</button>
+      <button class="btn-primario" onclick="enviarDenuncia()">Enviar denúncia</button>
+    </div>
+  </div>
+
+  <div id="tela-sucesso" class="tela">
+    <div class="sucesso">
+      <h2>Denúncia registrada com sucesso!</h2>
+      <div class="protocolo" id="numero-protocolo"></div>
+      <a class="btn-primario" href="index.html">Voltar ao início</a>
+    </div>
+  </div>
+
+</div>
+
+<script src="assets/scripts/common.js"></script>
+<script src="assets/scripts/descarte.js"></script>
+
+</body>
+</html>
