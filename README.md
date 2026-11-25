@@ -28,6 +28,22 @@ Equipe: Maria Eliza Vieira Perfeto, Fabio Gomes, Eduardo Zambenedetti e Eduardo 
 - Cadastrar, editar e remover imóveis, com envio de até 10 fotos por vez
 - Marcar imóveis como destaque na página inicial
 
+## Arquitetura
+
+O sistema segue a arquitetura **cliente-servidor**, com o front-end separado do back-end:
+
+```
+Navegador ──> Front-end estático (Netlify)
+                 │  fetch (HTTP/JSON)
+                 ▼
+              API REST Node.js + Express (Render) ──> MongoDB Atlas
+```
+
+- O **front-end** é composto por páginas HTML, CSS e JavaScript que rodam no navegador. Ele não acessa o banco: busca os dados na API com `fetch`.
+- O **back-end** é uma API REST organizada em camadas (rotas → controllers → models), no padrão MVC visto em aula.
+- O **banco de dados** (MongoDB Atlas) guarda os imóveis (coleção `imoveis`) e as fotos (coleção `imagens`).
+- O site não guarda dados pessoais dos visitantes: o contato acontece direto pelo WhatsApp ou e-mail da imobiliária.
+
 ## Tecnologias
 
 | Parte | Tecnologias |
