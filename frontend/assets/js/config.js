@@ -1,7 +1,7 @@
 // Configurações gerais do site.
 // Ao publicar, troque API_PRODUCAO pelo endereço do back-end no Render.
 const API_LOCAL = "http://localhost:3000";
-const API_PRODUCAO = "https://edu-imobiliaria-api.onrender.com";
+const API_PRODUCAO = "https://edu-imobiliaria.onrender.com";
 
 const rodandoLocal = ["localhost", "127.0.0.1", ""].includes(window.location.hostname);
 
