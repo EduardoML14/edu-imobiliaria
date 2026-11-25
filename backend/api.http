@@ -1,3 +1,5 @@
+# Para testar a API publicada, troque a linha abaixo por:
+# @baseUrl = https://edu-imobiliaria.onrender.com
 @baseUrl = http://localhost:3000
 @senha = troque-esta-senha
 
