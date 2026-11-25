@@ -11,6 +11,8 @@ const corsOptions = {
 };
 
 const app = express();
+// Não informa no cabeçalho das respostas que o servidor usa Express
+app.disable("x-powered-by");
 app.use(cors(corsOptions));
 app.use(express.json());
 
