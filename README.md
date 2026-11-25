@@ -114,12 +114,12 @@ Erros comuns ao conectar no banco:
    - **Build Command**: `npm install`
    - **Start Command**: `npm start`
    - **Instance Type**: Free
-4. Em **Environment**, crie as variáveis `STRING_CONEXAO`, `NOME_BANCO`, `SENHA_ADMIN` e `FRONTEND_URL` (endereço do front publicado, ex.: `https://usuario.github.io`).
-5. Depois do deploy, copie a URL do serviço (ex.: `https://edu-imobiliaria-api.onrender.com`).
+4. Em **Environment**, crie as variáveis `STRING_CONEXAO`, `NOME_BANCO`, `SENHA_ADMIN` e `FRONTEND_URL` (endereço do front publicado, sem barra no final; neste projeto: `https://edu-imobiliaria.netlify.app`).
+5. Depois do deploy, copie a URL do serviço (neste projeto: `https://edu-imobiliaria.onrender.com`).
 
 No plano gratuito o Render "dorme" depois de 15 minutos sem acesso; a primeira visita depois disso pode levar cerca de 1 minuto para carregar os imóveis.
 
-### 3. Front-end (GitHub Pages ou Netlify)
+### 3. Front-end (Netlify ou GitHub Pages)
 1. Em `frontend/assets/js/config.js`, troque `API_PRODUCAO` pela URL do Render.
 2. Publique a pasta `frontend`:
    - **Netlify**: Add new site > Import from GitHub, **Base directory** `frontend`, sem build command, **Publish directory** `frontend`.
