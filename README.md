@@ -5,6 +5,14 @@ Sistema Web para a **Edu Imobiliária** (Balneário Camboriú/SC): site para div
 
 Equipe: Maria Eliza Vieira Perfeto, Fabio Gomes, Eduardo Zambenedetti e Eduardo Moreira Lima.
 
+## Acesse
+
+| | Endereço |
+|---|---|
+| Site | https://edu-imobiliaria.netlify.app |
+| Área do corretor | https://edu-imobiliaria.netlify.app/admin.html |
+| API | https://edu-imobiliaria.onrender.com |
+
 ## Funcionalidades
 
 **Site (público)**
