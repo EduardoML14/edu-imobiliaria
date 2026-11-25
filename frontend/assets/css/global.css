@@ -120,20 +120,7 @@ a {
         linear-gradient(135deg, rgba(11, 35, 64, 0.94), rgba(18, 53, 91, 0.82)),
         radial-gradient(circle at 80% 20%, #2b6cb0 0, transparent 60%);
     color: #fff;
-    padding: 5rem 0 6rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    height: 60px;
-    background: var(--secondary-color);
-    clip-path: polygon(0 60%, 15% 40%, 35% 70%, 55% 35%, 75% 65%, 100% 30%, 100% 100%, 0 100%);
+    padding: 5rem 0;
 }
 
 .hero h1 {
@@ -381,7 +368,7 @@ a {
 /* ---------- Responsividade ---------- */
 @media (max-width: 576px) {
     .hero {
-        padding: 3rem 0 4.5rem;
+        padding: 3rem 0;
     }
 
     .galeria .carousel-item img,
