@@ -1,9 +1,13 @@
 # Edu Imobiliária - Sistema Web
 
 Projeto de extensão da disciplina de **Programação Web** (Univali, 2º semestre de 2026), orientado pelo Prof. Dr. Jhonatan Alves.
-Sistema Web para a **Edu Imobiliária** (Balneário Camboriú/SC): site para divulgar os imóveis e levar o cliente direto ao WhatsApp do corretor, com uma área restrita para o corretor cadastrar os imóveis.
-
 Equipe: Maria Eliza Vieira Perfeto, Fabio Gomes, Eduardo Zambenedetti e Eduardo Moreira Lima.
+
+## Sobre o projeto
+
+**A empresa parceira:** a Edu Imobiliária é um escritório imobiliário de pequeno porte em Balneário Camboriú/SC, cidade com mercado imobiliário muito competitivo e grande presença de profissionais e empresas do setor. Para se destacar, a imobiliária precisa de um canal próprio para divulgar seus imóveis, fortalecer sua identidade comercial e facilitar o contato com potenciais clientes.
+
+**O sistema:** um site para fortalecer a presença digital da imobiliária. O cliente pesquisa os imóveis com filtros, vê fotos e características e fala direto com o corretor pelo WhatsApp ou e-mail. O corretor tem uma área restrita, protegida por senha, para cadastrar, editar e remover os imóveis e as fotos, sem precisar mexer no código.
 
 ## Acesse
 
@@ -51,7 +55,7 @@ Navegador ──> Front-end estático (Netlify)
 | Front-end | HTML, CSS, JavaScript (módulos ES), Bootstrap 5.3 e Bootstrap Icons |
 | Back-end | Node.js, Express 5, Multer (upload de imagens), CORS, dotenv |
 | Banco de dados | MongoDB Atlas (driver oficial `mongodb`) |
-| Hospedagem sugerida | Back-end no Render, front-end no GitHub Pages ou Netlify, banco no MongoDB Atlas |
+| Hospedagem | Front-end no Netlify, back-end no Render e banco no MongoDB Atlas |
 
 O front e o back são dois projetos separados, como visto em aula. O back-end segue o padrão MVC das aulas:
 
@@ -89,34 +93,71 @@ edu-imobiliaria/
 
 As rotas "corretor" exigem o cabeçalho `x-admin-senha` com a senha definida em `SENHA_ADMIN`.
 
-**Senha da área do corretor:** não existe senha fixa no código. Ela é a que a equipe escolher na variável `SENHA_ADMIN` (no `.env` para rodar no computador e em **Environment** no Render). Use uma senha forte, não coloque no GitHub e passe ao corretor pessoalmente.
-
 As fotos são salvas no próprio MongoDB (coleção `imagens`) e não na pasta `uploads/` como na aula 10, porque o disco dos planos gratuitos do Render é apagado a cada deploy/reinício.
 
-## Como rodar no seu computador
+## Como configurar e rodar localmente
 
 Pré-requisitos: Node.js 18 ou mais novo e um cluster gratuito no MongoDB Atlas (passo a passo na aula 9).
 
-1. Back-end:
-   ```bash
-   cd backend
-   npm install
-   cp .env.example .env      # no Windows: copy .env.example .env
-   ```
-   Abra o `.env` e preencha `STRING_CONEXAO` (string do Atlas com a senha do usuário do banco) e `SENHA_ADMIN`.
-   ```bash
-   npm run seed   # opcional: cadastra 6 imóveis iniciais
-   npm start      # API em http://localhost:3000
-   ```
-2. Front-end: abra a pasta `frontend` no VS Code e use a extensão **Live Server** (botão "Go Live") em `index.html`.
-   Não abra o HTML com dois cliques (endereço `file://`), porque a navbar e o footer são carregados com `fetch`.
-3. Acesse a área do corretor pelo link no rodapé ("Área do corretor") com a senha do `.env`.
+### 1. Instalar as dependências e criar o `.env`
 
-Erros comuns ao conectar no banco:
+```bash
+cd backend
+npm install
+cp .env.example .env      # no Windows: copy .env.example .env
+```
+
+### 2. Variáveis de ambiente
+
+O modelo está em [`backend/.env.example`](backend/.env.example). O arquivo `.env` não vai para o GitHub.
+
+| Variável | Obrigatória | Descrição |
+|---|---|---|
+| `STRING_CONEXAO` | sim | String de conexão do MongoDB Atlas (Connect > Drivers), com a senha do usuário do banco |
+| `NOME_BANCO` | não | Nome do banco de dados. Padrão: `edu_imobiliaria` |
+| `SENHA_ADMIN` | sim | Senha da área do corretor |
+| `FRONTEND_URL` | não | Endereço do front-end publicado, para o CORS. Vazia libera qualquer origem (use vazia no computador) |
+| `DNS_PUBLICO` | não | `true` só se aparecer o erro `querySrv ECONNREFUSED` ao conectar |
+| `PORT` | não | Porta da API. Padrão: `3000` (o Render define sozinho) |
+
+### 3. Executar a API
+
+```bash
+npm run dev    # desenvolvimento: reinicia sozinho a cada alteração
+npm start      # execução normal (é o comando usado no Render)
+```
+
+A API fica em http://localhost:3000. Para testar as rotas, use o arquivo [`backend/api.http`](backend/api.http) com a extensão REST Client do VS Code.
+
+### 4. Executar o front-end
+
+Abra a pasta `frontend` no VS Code e use a extensão **Live Server** (botão "Go Live") em `index.html`.
+Não abra o HTML com dois cliques (endereço `file://`), porque a navbar e o footer são carregados com `fetch`.
+Rodando em `localhost`/`127.0.0.1`, o front usa a API local automaticamente; publicado, usa a API do Render (ver `frontend/assets/js/config.js`).
+
+### Erros comuns ao conectar no banco
+
 - `querySrv ECONNREFUSED`: a rede do computador bloqueou a consulta de DNS do Atlas. Coloque `DNS_PUBLICO=true` no `.env`.
 - `SSL alert number 80` ou `Server selection timed out`: o IP não está liberado no Atlas. Em **Network Access**, adicione `0.0.0.0/0`.
 
-## Como publicar (Parte III)
+## Como popular o banco
+
+Com o `.env` configurado, rode dentro da pasta `backend`:
+
+```bash
+npm run seed
+```
+
+O script [`backend/src/config/seed.js`](backend/src/config/seed.js) cadastra 6 imóveis iniciais (apartamentos, cobertura, casa e sala comercial, para venda e aluguel), sendo 3 em destaque. Ele só insere se a coleção `imoveis` estiver vazia, então pode ser rodado mais de uma vez sem duplicar. O banco e as coleções são criados automaticamente no primeiro cadastro. Fotos são adicionadas pela área do corretor.
+
+## Credenciais de teste
+
+O sistema tem um único tipo de acesso restrito: a **área do corretor** (`admin.html`), que pede só uma senha (não há cadastro de usuários).
+
+- **No seu computador:** a senha é o valor de `SENHA_ADMIN` no seu `.env`. No `.env.example` ela vem como `troque-esta-senha`.
+- **No site publicado:** a senha de produção não fica no repositório, porque ele é público e qualquer pessoa poderia alterar os imóveis da imobiliária. Ela é enviada ao professor junto com a entrega no AVA e passada ao corretor pessoalmente.
+
+## Como publicar (deploy)
 
 ### 1. Banco (MongoDB Atlas)
 - Em **Network Access**, adicione o IP `0.0.0.0/0` (permite a conexão a partir do Render).
@@ -135,11 +176,10 @@ Erros comuns ao conectar no banco:
 
 No plano gratuito o Render "dorme" depois de 15 minutos sem acesso; a primeira visita depois disso pode levar cerca de 1 minuto para carregar os imóveis.
 
-### 3. Front-end (Netlify ou GitHub Pages)
+### 3. Front-end (Netlify)
 1. Em `frontend/assets/js/config.js`, troque `API_PRODUCAO` pela URL do Render.
-2. Publique a pasta `frontend`:
-   - **Netlify**: Add new site > Import from GitHub, **Base directory** `frontend`, sem build command, **Publish directory** `frontend`.
-   - **GitHub Pages**: publique a pasta `frontend` (por exemplo, com um repositório só do front ou com uma GitHub Action).
+2. No Netlify: **Add new site > Import an existing project**, escolha o repositório e configure **Base directory** `frontend`, **Build command** vazio e **Publish directory** `frontend`.
+3. Deixe o site público (**Make public**) e copie o endereço para a variável `FRONTEND_URL` do Render.
 
 ## Como usar a área do corretor
 
