@@ -141,6 +141,17 @@ No plano gratuito o Render "dorme" depois de 15 minutos sem acesso; a primeira v
    - **Netlify**: Add new site > Import from GitHub, **Base directory** `frontend`, sem build command, **Publish directory** `frontend`.
    - **GitHub Pages**: publique a pasta `frontend` (por exemplo, com um repositório só do front ou com uma GitHub Action).
 
+## Como usar a área do corretor
+
+1. Acesse `admin.html` (link "Área do corretor" no rodapé do site) e entre com a senha.
+2. **Novo imóvel**: preencha título, tipo, finalidade, preço e cidade (campos obrigatórios), as características e a descrição, e escolha até 10 fotos (máx. 5 MB cada).
+3. Marque **Mostrar em destaque** para o imóvel aparecer na página inicial.
+4. **Editar** (ícone de lápis): altere os dados, marque "remover" nas fotos que devem sair e adicione fotos novas.
+5. **Remover** (ícone de lixeira): apaga o imóvel e as fotos dele. Essa ação não pode ser desfeita.
+6. Clique em **Sair** ao terminar, principalmente em computadores compartilhados.
+
+No plano gratuito do Render a API "dorme" depois de 15 minutos sem uso; a primeira página aberta depois disso pode levar cerca de 1 minuto para carregar.
+
 ## Onde alterar os dados da imobiliária
 
 - `frontend/assets/js/config.js`: WhatsApp, telefone, e-mail, Instagram e endereço (objeto `EMPRESA`)
