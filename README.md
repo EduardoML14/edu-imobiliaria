@@ -65,8 +65,9 @@ edu-imobiliaria/
 │   ├── server.js                 # Servidor Express
 │   ├── api.http                  # Testes das rotas (extensão REST Client do VS Code)
 │   ├── .env.example              # Modelo das variáveis de ambiente
+│   ├── database/                 # Estrutura do banco e dados mínimos (imoveis.json)
 │   └── src/
-│       ├── config/               # Conexão com o MongoDB e script de dados iniciais
+│       ├── config/               # Conexão com o MongoDB e script que prepara o banco (seed)
 │       ├── routes/               # Rotas (URLs) da API
 │       ├── controllers/          # Lógica de cada rota
 │       ├── models/               # Acesso às coleções do banco
@@ -140,15 +141,41 @@ Rodando em `localhost`/`127.0.0.1`, o front usa a API local automaticamente; pub
 - `querySrv ECONNREFUSED`: a rede do computador bloqueou a consulta de DNS do Atlas. Coloque `DNS_PUBLICO=true` no `.env`.
 - `SSL alert number 80` ou `Server selection timed out`: o IP não está liberado no Atlas. Em **Network Access**, adicione `0.0.0.0/0`.
 
-## Como popular o banco
+## Banco de dados (MongoDB Atlas)
 
-Com o `.env` configurado, rode dentro da pasta `backend`:
+O sistema usa duas coleções: `imoveis` (dados dos imóveis) e `imagens` (fotos). A estrutura dos documentos, os dados mínimos (`imoveis.json`) e outras formas de importar estão em [`backend/database`](backend/database/README.md).
+
+### 1. Criar o cluster e o acesso
+
+1. Crie uma conta em https://cloud.mongodb.com e um cluster gratuito (**M0**), como na aula 9.
+2. Em **Database Access**, crie um usuário do banco com a permissão **Read and write to any database** e guarde a senha dele.
+3. Em **Network Access**, clique em **Add IP Address > Allow Access from Anywhere** (`0.0.0.0/0`). Isso é necessário para o Render conectar, porque o IP dele muda.
+
+### 2. Pegar e ajustar a string de conexão
+
+1. Em **Clusters**, clique em **Connect > Drivers** (Driver: Node.js) e copie a string. Ela tem este formato:
+   ```
+   mongodb+srv://<usuario>:<db_password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+   ```
+2. Troque `<db_password>` pela senha do **usuário do banco** criado no passo anterior (não é a senha da conta do Atlas), **sem** os sinais `<` e `>`. Se a senha tiver caracteres especiais (`@`, `:`, `/`, `#`, `%`), codifique-os (ex.: `@` vira `%40`) ou crie uma senha só com letras e números.
+3. Cole no `.env` (uma linha, sem aspas e sem espaços):
+   ```
+   STRING_CONEXAO=mongodb+srv://usuario:senha@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+   NOME_BANCO=edu_imobiliaria
+   ```
+   A string não precisa ter o nome do banco: ele vem de `NOME_BANCO`. O mesmo cluster pode guardar bancos de outros projetos.
+
+### 3. Criar o banco, as coleções e os dados mínimos
+
+No MongoDB o banco é criado automaticamente na primeira gravação. Com o `.env` configurado, rode dentro da pasta `backend`:
 
 ```bash
 npm run seed
 ```
 
-O script [`backend/src/config/seed.js`](backend/src/config/seed.js) cadastra 6 imóveis iniciais (apartamentos, cobertura, casa e sala comercial, para venda e aluguel), sendo 3 em destaque. Ele só insere se a coleção `imoveis` estiver vazia, então pode ser rodado mais de uma vez sem duplicar. O banco e as coleções são criados automaticamente no primeiro cadastro. Fotos são adicionadas pela área do corretor.
+O script ([`backend/src/config/seed.js`](backend/src/config/seed.js)) cria as coleções `imoveis` e `imagens`, cria os índices usados nas buscas e cadastra os 6 imóveis de [`backend/database/imoveis.json`](backend/database/imoveis.json) (3 em destaque). Os imóveis só são inseridos se a coleção estiver vazia, então ele pode ser rodado mais de uma vez sem duplicar. Fotos são adicionadas pela área do corretor.
+
+Também é possível criar pelo site do Atlas: **Clusters > Browse Collections > Create Database**, com Database name `edu_imobiliaria` e Collection name `imoveis` (a coleção `imagens` é criada sozinha no primeiro envio de foto). Depois, rode `npm run seed` para os dados mínimos.
 
 ## Credenciais de teste
 
@@ -160,8 +187,7 @@ O sistema tem um único tipo de acesso restrito: a **área do corretor** (`admin
 ## Como publicar (deploy)
 
 ### 1. Banco (MongoDB Atlas)
-- Em **Network Access**, adicione o IP `0.0.0.0/0` (permite a conexão a partir do Render).
-- Use a mesma string de conexão do `.env`.
+Siga a seção [Banco de dados](#banco-de-dados-mongodb-atlas) (o IP `0.0.0.0/0` liberado é obrigatório para o Render) e use a mesma string de conexão do `.env`.
 
 ### 2. Back-end (Render)
 1. Suba este projeto para um repositório no GitHub (o `.gitignore` já impede o envio do `.env` e da `node_modules`).
