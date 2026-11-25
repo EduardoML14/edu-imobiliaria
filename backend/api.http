@@ -1,0 +1,62 @@
+@baseUrl = http://localhost:3000
+@senha = troque-esta-senha
+
+### 1. Verificar se a API está no ar
+GET {{baseUrl}}/
+
+### 2. Listar imóveis
+GET {{baseUrl}}/imoveis
+
+### 3. Listar imóveis com filtros
+GET {{baseUrl}}/imoveis?finalidade=Venda&tipo=Apartamento&quartos=2&precoMax=2000000
+
+### 4. Listar só os destaques
+GET {{baseUrl}}/imoveis?destaque=true
+
+### 5. Buscar um imóvel pelo id (troque o id)
+GET {{baseUrl}}/imoveis/COLOQUE_O_ID_AQUI
+
+### 6. Login da área administrativa
+POST {{baseUrl}}/login
+x-admin-senha: {{senha}}
+
+### 7. Cadastrar imóvel com imagem
+# O campo da imagem deve se chamar "imagens", conforme upload.array("imagens").
+POST {{baseUrl}}/imoveis
+x-admin-senha: {{senha}}
+Content-Type: multipart/form-data; boundary=----RestClientBoundary
+
+------RestClientBoundary
+Content-Disposition: form-data; name="titulo"
+
+Apartamento teste via api.http
+------RestClientBoundary
+Content-Disposition: form-data; name="tipo"
+
+Apartamento
+------RestClientBoundary
+Content-Disposition: form-data; name="finalidade"
+
+Venda
+------RestClientBoundary
+Content-Disposition: form-data; name="preco"
+
+850000
+------RestClientBoundary
+Content-Disposition: form-data; name="cidade"
+
+Balneário Camboriú
+------RestClientBoundary
+Content-Disposition: form-data; name="quartos"
+
+2
+------RestClientBoundary
+Content-Disposition: form-data; name="imagens"; filename="foto.png"
+Content-Type: image/png
+
+< ./foto.png
+------RestClientBoundary--
+
+### 8. Remover imóvel (troque o id)
+DELETE {{baseUrl}}/imoveis/COLOQUE_O_ID_AQUI
+x-admin-senha: {{senha}}

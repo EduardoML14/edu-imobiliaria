@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato | Edu Imobiliária</title>
+    <meta name="description" content="Fale com a Edu Imobiliária pelo WhatsApp, e-mail ou formulário.">
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+</head>
+<body data-pagina="contato">
+    <header>
+        <div id="navbar-pagina"></div>
+        <div class="cabecalho-pagina">
+            <div class="container">
+                <h1 class="mb-1">Contato</h1>
+                <p class="mb-0 text-white-50">Tire suas dúvidas, agende uma visita ou anuncie o seu imóvel.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="row g-4">
+            <div class="col-lg-5">
+                <div class="info-box h-100">
+                    <h2 class="h4 mb-3">Fale com a gente</h2>
+                    <a class="btn btn-whatsapp w-100 mb-4" id="contato-whatsapp" href="#" target="_blank" rel="noopener">
+                        <i class="bi bi-whatsapp"></i> Conversar no WhatsApp
+                    </a>
+                    <ul class="list-unstyled d-grid gap-3 mb-0">
+                        <li><i class="bi bi-telephone me-2"></i> <span id="contato-telefone"></span></li>
+                        <li><i class="bi bi-envelope me-2"></i> <a id="contato-email" href="#"></a></li>
+                        <li><i class="bi bi-instagram me-2"></i> <a id="contato-instagram" href="#" target="_blank" rel="noopener">Instagram</a></li>
+                        <li><i class="bi bi-geo-alt me-2"></i> <span id="contato-endereco"></span></li>
+                        <li><i class="bi bi-clock me-2"></i> Segunda a sexta, 9h às 18h. Sábado, 9h às 12h.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <form id="form-contato" class="info-box" novalidate>
+                    <h2 class="h4 mb-3">Envie uma mensagem</h2>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label for="contato-nome" class="form-label">Seu nome</label>
+                            <input type="text" id="contato-nome" class="form-control" maxlength="100">
+                        </div>
+                        <div class="col-12">
+                            <label for="contato-mensagem" class="form-label">Mensagem *</label>
+                            <textarea id="contato-mensagem" class="form-control" rows="5" maxlength="1000" required></textarea>
+                        </div>
+                        <div class="col-12">
+                            <small class="text-secondary d-block mb-3">A mensagem é aberta no seu WhatsApp para você enviar. O site não guarda nenhum dado seu.</small>
+                            <button type="submit" class="btn btn-whatsapp px-4"><i class="bi bi-whatsapp"></i> Enviar pelo WhatsApp</button>
+                        </div>
+                    </div>
+                    <div id="contato-retorno" class="mt-3" role="status"></div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-pagina"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="assets/js/loadings.js" type="module"></script>
+    <script src="assets/js/contato.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imóveis | Edu Imobiliária</title>
+    <meta name="description" content="Veja os imóveis à venda e para alugar da Edu Imobiliária em Balneário Camboriú.">
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+</head>
+<body data-pagina="imoveis">
+    <header>
+        <div id="navbar-pagina"></div>
+        <div class="cabecalho-pagina">
+            <div class="container">
+                <h1 class="mb-1">Imóveis</h1>
+                <p class="mb-0 text-white-50">Use os filtros para encontrar o imóvel certo para você.</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="row g-4">
+            <aside class="col-lg-3">
+                <form id="form-filtros" class="info-box" aria-label="Filtros de busca">
+                    <h2 class="h5 mb-3">Filtros</h2>
+                    <div class="mb-3">
+                        <label for="filtro-finalidade" class="form-label">Finalidade</label>
+                        <select id="filtro-finalidade" name="finalidade" class="form-select">
+                            <option value="">Todas</option>
+                            <option value="Venda">Venda</option>
+                            <option value="Aluguel">Aluguel</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="filtro-tipo" class="form-label">Tipo</label>
+                        <select id="filtro-tipo" name="tipo" class="form-select">
+                            <option value="">Todos</option>
+                            <option>Apartamento</option>
+                            <option>Casa</option>
+                            <option>Cobertura</option>
+                            <option>Terreno</option>
+                            <option>Sala comercial</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="filtro-cidade" class="form-label">Cidade</label>
+                        <input type="text" id="filtro-cidade" name="cidade" class="form-control" placeholder="Ex.: Balneário Camboriú">
+                    </div>
+                    <div class="mb-3">
+                        <label for="filtro-bairro" class="form-label">Bairro</label>
+                        <input type="text" id="filtro-bairro" name="bairro" class="form-control" placeholder="Ex.: Centro">
+                    </div>
+                    <div class="mb-3">
+                        <label for="filtro-quartos" class="form-label">Quartos (mínimo)</label>
+                        <select id="filtro-quartos" name="quartos" class="form-select">
+                            <option value="">Qualquer</option>
+                            <option value="1">1+</option>
+                            <option value="2">2+</option>
+                            <option value="3">3+</option>
+                            <option value="4">4+</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="filtro-precoMax" class="form-label">Preço máximo (R$)</label>
+                        <input type="number" id="filtro-precoMax" name="precoMax" class="form-control" min="0" step="1000" placeholder="Sem limite">
+                    </div>
+                    <button type="submit" class="btn btn-primario w-100 mb-2">
+                        <i class="bi bi-funnel"></i> Filtrar
+                    </button>
+                    <button type="button" id="limpar-filtros" class="btn btn-outline-secondary w-100">Limpar filtros</button>
+                </form>
+            </aside>
+
+            <section class="col-lg-9" aria-live="polite">
+                <p class="text-secondary" id="total-resultados"></p>
+                <div class="row g-4" id="lista-imoveis"></div>
+            </section>
+        </div>
+    </main>
+
+    <div id="footer-pagina"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="assets/js/loadings.js" type="module"></script>
+    <script src="assets/js/imoveis.js" type="module"></script>
+</body>
+</html>
